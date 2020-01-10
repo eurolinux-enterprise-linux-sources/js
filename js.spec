@@ -4,7 +4,7 @@ Summary:		JavaScript interpreter and libraries
 Name:		js
 Epoch:		1
 Version:		1.8.5
-Release:		13%{?hgdate:.hg%{hgdate}}%{?dist}
+Release:		19%{?hgdate:.hg%{hgdate}}%{?dist}
 License:		GPLv2+ or LGPLv2+ or MPLv1.1
 Group:		Development/Languages
 URL:			http://www.mozilla.org/js/
@@ -15,6 +15,9 @@ Patch2:		js185-destdir.patch
 Patch3:		js-1.8.5-537701.patch
 Patch4:		js185-arm-nosoftfp.patch
 Patch5:		js185-libedit.patch
+Patch7:         0001-Make-js-config.h-multiarch-compatible.patch
+Patch8:		ppc64le.patch
+Patch9:         bz1027492-aarch64.patch
 Provides:		libjs = %{version}-%{release}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 Buildrequires:	nspr-devel >= 4.7
@@ -54,6 +57,9 @@ you will need to install %{name}-devel.
 %patch3 -p1 -b .537701
 %patch4 -p1 -b .armhfp
 %patch5 -p1 -b .libedit
+%patch7 -p1 -b .multilib
+%patch8 -p1 -b .ppc64le
+%patch9 -p1 -b .aarch64
 cd js
 
 # Rm parts with spurios licenses, binaries
@@ -135,6 +141,28 @@ rm -rf %{buildroot}
 %{_includedir}/js
 
 %changelog
+* Tue Aug 26 2014 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.8.5-19
+- Rebase aarch64 patch
+- Resolves: #1134124
+
+* Tue Aug 16 2014 Colin Walters <walters@redhat.com> - 1:1.8.5-18
+- Backport ppc64le patch (Aldy Hernandez <aldyh@redhat.com>)
+- Resolves: #1125725
+
+* Mon Mar 17 2014 Colin Walters <walters@redhat.com> - 1:1.8.5-17
+- Fix multiarch conflicts in js-config.h
+- Resolves: #1076416
+
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 1:1.8.5-16
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 1:1.8.5-15
+- Mass rebuild 2013-12-27
+
+* Wed Nov 06 2013 Colin Walters <walters@redhat.com> - 1:1.8.5-14
+- Patch to build on aarch64
+  Resolves: #1027493
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.8.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
