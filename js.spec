@@ -4,7 +4,7 @@ Summary:		JavaScript interpreter and libraries
 Name:		js
 Epoch:		1
 Version:		1.8.5
-Release:		17%{?hgdate:.hg%{hgdate}}%{?dist}
+Release:		13%{?hgdate:.hg%{hgdate}}%{?dist}
 License:		GPLv2+ or LGPLv2+ or MPLv1.1
 Group:		Development/Languages
 URL:			http://www.mozilla.org/js/
@@ -15,8 +15,6 @@ Patch2:		js185-destdir.patch
 Patch3:		js-1.8.5-537701.patch
 Patch4:		js185-arm-nosoftfp.patch
 Patch5:		js185-libedit.patch
-Patch6:         bz1027492-aarch64.patch
-Patch7:         0001-Make-js-config.h-multiarch-compatible.patch
 Provides:		libjs = %{version}-%{release}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 Buildrequires:	nspr-devel >= 4.7
@@ -56,8 +54,6 @@ you will need to install %{name}-devel.
 %patch3 -p1 -b .537701
 %patch4 -p1 -b .armhfp
 %patch5 -p1 -b .libedit
-#%patch6 -p1 -b .aarch64
-%patch7 -p1 -b .multilib
 cd js
 
 # Rm parts with spurios licenses, binaries
@@ -139,20 +135,6 @@ rm -rf %{buildroot}
 %{_includedir}/js
 
 %changelog
-* Mon Mar 17 2014 Colin Walters <walters@redhat.com> - 1:1.8.5-17
-- Fix multiarch conflicts in js-config.h
-- Resolves: #1076416
-
-* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 1:1.8.5-16
-- Mass rebuild 2014-01-24
-
-* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 1:1.8.5-15
-- Mass rebuild 2013-12-27
-
-* Wed Nov 06 2013 Colin Walters <walters@redhat.com> - 1:1.8.5-14
-- Patch to build on aarch64
-  Resolves: #1027493
-
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.8.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
